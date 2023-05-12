@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 export default function Home() {
   const { t } = useTranslation();
   const category = useRootCategory();
-  const enableFeedback = !category.meta?.disableFeedback
+  const enableFeedback = !category.meta?.disableFeedback;
   const { isLoading: isNoticesLoading, data: notices } = useNotices(category.id);
   const { data: topics, isLoading: isTopicsLoading } = useCategoryTopics();
   const showTopics = topics && topics.length > 0;
@@ -37,10 +37,13 @@ export default function Home() {
   ) : (
     <>
       <Notices />
-      <PageContent shadow title={title}>
-        {showTopics && <Topics />}
-        {showCategories && !!categories?.length && <TopCategoryList />}
-      </PageContent>
+      {showTopics ? (
+        <PageContent shadow title={t('topic.title')}>
+          <Topics />
+        </PageContent>
+      ) : showCategories ? (
+        <TopCategoryList />
+      ) : null}
     </>
   );
 

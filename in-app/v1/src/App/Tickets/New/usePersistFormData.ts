@@ -9,6 +9,7 @@ interface FormData {
 }
 
 function persistFormData(data: FormData) {
+  console.log(data);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 

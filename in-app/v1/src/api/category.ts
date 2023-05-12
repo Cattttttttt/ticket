@@ -107,3 +107,21 @@ export function useNotices(categoryId?: string) {
     staleTime: 1000 * 60,
   });
 }
+
+export type ClassifyResult =
+  | {
+      status: 'success';
+      data: {
+        name: string;
+        id: string;
+      };
+    }
+  | { status: 'failed' };
+
+export const classifyTicket = async (categoryId: string, content: string) => {
+  const { data } = await http.post<ClassifyResult>('/api/2/categories/classify', {
+    productId: categoryId,
+    content,
+  });
+  return data;
+};
