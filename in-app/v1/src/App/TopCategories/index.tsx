@@ -22,9 +22,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const DescriptionAndClassify = () => {
   const [description, setDescription] = useState<string>('');
-  const [classifiedCategory, setClassifiedCategory] = useState<{ name: string; id: string } | null>(
-    null
-  );
+  const [classifiedCategory, setClassifiedCategory] = useState<
+    { name: string; id: string } | null | undefined
+  >(undefined);
   const [loading, setLoading] = useState<boolean>(false);
   const category = useRootCategory();
 
@@ -61,16 +61,18 @@ const DescriptionAndClassify = () => {
       />
       {
         <div>
-          {loading
-            ? '正在探测...'
-            : classifiedCategory && (
-                <>
-                  探测分类：
-                  <Link to={`/tickets/new?category_id=${classifiedCategory.id}`}>
-                    {classifiedCategory.name}
-                  </Link>
-                </>
-              )}
+          {loading ? (
+            '正在探测...'
+          ) : classifiedCategory ? (
+            <>
+              探测分类：
+              <Link to={`/tickets/new?category_id=${classifiedCategory.id}`}>
+                {classifiedCategory.name}
+              </Link>
+            </>
+          ) : classifiedCategory === null ? (
+            '探测失败'
+          ) : null}
         </div>
       }
     </>
