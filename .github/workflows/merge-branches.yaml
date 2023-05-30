@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         # if a new branch needs to be rebased onto, add its name here
-        branch: [tap, xd, dc, tap-intl]
+        branch: [test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
